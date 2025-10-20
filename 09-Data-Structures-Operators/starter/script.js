@@ -39,8 +39,71 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
 };
 
+const arr1 = [7, 8, 9];
+const badNewArr = [1, 2, arr1[0], arr1[1], arr1[2]];
+
+console.log('Bad way to add array values', badNewArr);
+
+const newArr = [1, 2, ...arr1];
+
+console.log('new way to add array values', newArr);
+console.log(...newArr);
+console.log(1, 2, 7, 8, 9);
+
+const mainMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log('Main menu', mainMenu);
+
+// Copy Array
+const mainMenuCopy = [...restaurant.mainMenu];
+
+// Join 2 arrays
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
+
+// console.log(`${menu, menu}`);
+
+// Iterables: arrays, strings, maps, sets. NOT object
+const str = 'Jonas';
+const letters = [...str, ' ', 'S.'];
+console.log(
+  "String value converts to array with 'S.' using spread operators ",
+  letters
+);
+console.log('Normal string divide with spread operator without array', ...str);
+// console.log(`${...str} Schmedtmann`);
+
+// Real-world Example
+const ingredients = [
+  prompt("Let's make pasta! Ingredient 1?"),
+  prompt('Ingredient 2?'),
+  prompt('Ingredient 3?'),
+];
+
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+restaurant.orderPasta(...ingredients);
+
+// Objects
+
+const newRestarunt = { foundedIn: 1998, ...restaurant, founder: 'Guiseppe' };
+
+console.log('newRestarunt details', newRestarunt);
+
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Roma';
+
+console.log('restaurantCopy.name', restaurantCopy.name);
+console.log('restaurant.name', restaurant.name);
+
+/**
+ //////////////////////////////////////////////////
+ // Destructuring Objects
 restaurant.orderDelivery({
   time: '22:30',
   address: 'Bengaluru, Karnataka, India - 560032',
@@ -89,6 +152,7 @@ const {
 // console.log('fri', fri);
 console.log('fri opened', opened);
 console.log('fri closed', closed);
+*/
 
 /**
  ///////////////////////////////////////////////////
