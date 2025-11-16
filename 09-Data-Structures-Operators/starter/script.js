@@ -47,6 +47,28 @@ const game = {
 };
 
 // Data needed for first part of the section
+
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const openingHours = {
+  // thu: {   // Static object key declaring.
+  [weekdays[3]]: {
+    // Dynamic object key declaring.
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  // [`day-${2 + 4}`]: {
+  [weekdays[2 + 3]]: {
+    // Custom object key name declaring.
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
@@ -54,24 +76,25 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-  order: function (starterIndex, mainIndex) {
+  /** Old way to assign objects */
+  // openingHours: openingHours,
+
+  /** New way to assign objects */
+  openingHours,
+
+  /** Old way to declare methods*/
+  // order: function (starterIndex, mainIndex) {
+
+  /** New way to declare methods*/
+  order(starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
-  orderDelivery: function ({
+
+  /** Old way to declare methods*/
+  // orderDelivery: function ({
+
+  /** New way to declare methods*/
+  orderDelivery({
     starterIndex = 1,
     mainIndex = 0,
     address = 'India',
@@ -81,7 +104,12 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
-  orderPasta: function (ing1, ing2, ing3) {
+
+  /** Old way to declare methods*/
+  // orderPasta: function (ing1, ing2, ing3) {
+
+  /** New way to declare methods*/
+  orderPasta(ing1, ing2, ing3) {
     console.log(
       `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
     );
@@ -93,6 +121,269 @@ const restaurant = {
     );
   },
 };
+
+////////////////////////////////////////
+// New Operations to Make Set Useful
+
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+  'rice',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+const indianFoods = new Set([
+  'Roti',
+  'Chapati',
+  'Rice',
+  'Dal',
+  'tomatoes',
+  'garlic',
+]);
+
+const specialFoods = new Set([
+  'Donuts',
+  'Pizza',
+  'Burger',
+  'Sandwich',
+  'French fries',
+]);
+
+/* Intersection: 
+      Def: It will give common values from (2 or more) sets.
+*/
+const commonFoodsSet = italianFoods.intersection(mexicanFoods);
+const commonFoodsArray = [...commonFoodsSet];
+// Shortcut.
+// const commonFoodsArray = [...italianFoods.intersection(mexicanFoods, indianFoods)];
+
+console.log('Intersection: ', commonFoodsSet);
+
+console.log(
+  'The common foods',
+  commonFoodsArray,
+  'in italianFoods and mexicanFoods'
+);
+
+/* Union:
+      Def: It will merge (2 or more) sets with unique values (Don't allows duplicates).
+*/
+
+const mergedFoodSets = italianFoods.union(mexicanFoods, indianFoods);
+const mergedFoodArr = [...mergedFoodSets];
+console.log('Union:', mergedFoodSets);
+
+console.log(
+  'The merged italian, mexican and indian foods with unique.',
+  mergedFoodArr
+);
+
+/* Deference:
+      Def: it will give unique first set values from other sets(removes duplicate values from sets and give only first set values).
+*/
+
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods, indianFoods);
+
+console.log('Deference:', uniqueItalianFoods);
+
+/* SymmetricDifference:
+        Def: it will give unique set values for given sets.
+*/
+const uniqueFoods = italianFoods.symmetricDifference(mexicanFoods);
+const uniqueFoods2 = italianFoods.union(mexicanFoods);
+
+console.log('SymmetricDifference: ', uniqueFoods);
+console.log('Union: ', uniqueFoods2);
+
+/* isDisjointFrom:
+      Def: It will check is common values is there from given sets.
+*/
+
+console.log('isDisjointFrom: ', italianFoods.isDisjointFrom(mexicanFoods));
+console.log('isDisjointFrom: ', italianFoods.isDisjointFrom(specialFoods));
+
+/* /////////////////////////////////////
+// Sets
+
+const ordersSet = new Set([
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+
+console.log(ordersSet);
+console.log(new Set('Jonas'));
+
+console.log(ordersSet.size);
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('Bread'));
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+ordersSet.delete('Risotto');
+// ordersSet.clear();
+console.log(ordersSet);
+
+for (const order of ordersSet) {
+  console.log(order);
+}
+
+// Example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+
+const uniqueStaff = [...new Set(staff)];
+console.log(uniqueStaff);
+
+console.log(new Set(staff).size);
+
+console.log(new Set('jonasshmedtmann').size);
+*/
+
+/* ////////////////////////////////////////
+// Coding Challenge #2
+
+/
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+Info: The game object is there in top of the file code.
+
+GOOD LUCK 😀
+/
+
+// 1.
+for (const [goal, playerName] of game.scored.entries()) {
+  console.log(`Goal ${goal + 1}: ${playerName}`);
+}
+
+// 2.
+const oddValues = Object.values(game.odds);
+let oddsSum = 0;
+
+for (const value of oddValues) {
+  oddsSum += value;
+}
+
+console.log(`The total odds average is ${oddsSum / oddValues.length}`);
+
+// 3.
+for (const [name, value] of Object.entries(game.odds)) {
+  const teamStr = name === 'x' ? 'draw' : `victory ${game[name]}`;
+  console.log(`Odd of ${teamStr}: ${value}`);
+}
+
+// BONUS
+let scorers = {};
+for (const player of game.scored) {
+  scorers[player] = (scorers[player] || 0) + 1;
+}
+
+console.log('The scorers', scorers);
+
+*/
+
+/*
+// Looping Objects: Object Keys, Values, and Entries
+
+// Property NAMES:
+const properties = Object.keys(openingHours);
+console.log(`openingHours object properties is `, properties);
+
+// Property VALUES:
+const values = Object.values(openingHours);
+console.log(`openingHours object values is `, values);
+
+// Entries Object:
+const entries = Object.entries(openingHours);
+// console.log(entries);
+
+// [keys, values]
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
+}
+*/
+
+/* ///////////////////////////////////////
+
+// Optional Chaining
+
+if (restaurant && restaurant.openingHours && restaurant.openingHours.mon) {
+  console.log(restaurant.openingHours.mon.open);
+}
+
+// console.log(restaurant.openingHours.mon.open);
+
+// WITH optional chaining
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant?.openingHours?.mon?.open);
+
+// Example
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  const open = restaurant.openingHours[day].open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// Methods
+console.log(restaurant?.order?.(0, 1) ?? 'Method does not exist');
+console.log(restaurant?.orderRisotto?.(0, 1) ?? 'Method does not exist');
+
+// Arrays
+const users = [{ name: 'Jonas', email: 'hello@jonas.io' }];
+// const users = [];
+
+console.log(users[0]?.name ?? 'User array empty');
+
+if (users?.length > 0) {
+  console.log(users[0].name);
+} else {
+  console.log('User array empty');
+}
+
+*/
+
+/* /////////////////////////////////////
+// The for-of Loop
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+for (let item of menu) console.log(item);
+
+console.log('Used Array.entries method for menu array', menu.entries());
+
+for (let [i, item] of menu.entries()) {
+  console.log(`${i + 1}: ${item}`);
+}
+
+*/
 
 ///////////////////////////////////////
 // Coding Challenge #1
@@ -117,6 +408,7 @@ GOOD LUCK 😀
 Info: The game object is there in top of the file code.
 */
 
+/*
 // 1.
 const [players1, players2] = game.players;
 
@@ -163,6 +455,7 @@ printGoals(...game.scored);
 // 7.
 team1 < team2 && console.log('Team 1 is more likely to win.');
 team1 > team2 && console.log('Team 2 is more likely to win.');
+*/
 
 /* //////////////////////////////////////////////////
 // Logical Assignment Operators
