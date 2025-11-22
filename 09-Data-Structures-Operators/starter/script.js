@@ -122,7 +122,42 @@ const restaurant = {
   },
 };
 
-////////////////////////////////////////
+const rest = new Map();
+
+// Map.set() to add items in map.
+rest.set('name', 'Classico Italian');
+rest.set(1, 'Firenze Italy');
+console.log(rest.set(2, 'Lisbon, Portugal'));
+
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
+
+// Map.get() to get the value with a specific key.
+console.log(rest.get('name'));
+console.log(rest.get(true));
+console.log(rest.get(1));
+
+const time = 8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+console.log(rest.has('categories'));
+rest.delete(2);
+// rest.clear();
+
+const arr = [1, 2];
+rest.set(arr, 'Test');
+rest.set(document.querySelector('h1'), 'Heading');
+console.log(rest);
+console.log(rest.size);
+
+console.log(rest.get(arr));
+
+
+/* ////////////////////////////////////////
 // New Operations to Make Set Useful
 
 const italianFoods = new Set([
@@ -161,9 +196,7 @@ const specialFoods = new Set([
   'French fries',
 ]);
 
-/* Intersection: 
-      Def: It will give common values from (2 or more) sets.
-*/
+// Intersection Def: It will give common values from (2 or more) sets.
 const commonFoodsSet = italianFoods.intersection(mexicanFoods);
 const commonFoodsArray = [...commonFoodsSet];
 // Shortcut.
@@ -177,9 +210,7 @@ console.log(
   'in italianFoods and mexicanFoods'
 );
 
-/* Union:
-      Def: It will merge (2 or more) sets with unique values (Don't allows duplicates).
-*/
+// Union Def: It will merge (2 or more) sets with unique values (Don't allows duplicates).
 
 const mergedFoodSets = italianFoods.union(mexicanFoods, indianFoods);
 const mergedFoodArr = [...mergedFoodSets];
@@ -190,29 +221,26 @@ console.log(
   mergedFoodArr
 );
 
-/* Deference:
-      Def: it will give unique first set values from other sets(removes duplicate values from sets and give only first set values).
-*/
+// Deference Def: it will give unique first set values from other sets(removes duplicate values from sets and give only first set values).
 
 const uniqueItalianFoods = italianFoods.difference(mexicanFoods, indianFoods);
 
 console.log('Deference:', uniqueItalianFoods);
 
-/* SymmetricDifference:
-        Def: it will give unique set values for given sets.
-*/
+// SymmetricDifference: it will give unique set values for given sets.
+
 const uniqueFoods = italianFoods.symmetricDifference(mexicanFoods);
 const uniqueFoods2 = italianFoods.union(mexicanFoods);
 
 console.log('SymmetricDifference: ', uniqueFoods);
 console.log('Union: ', uniqueFoods2);
 
-/* isDisjointFrom:
-      Def: It will check is common values is there from given sets.
-*/
+// isDisjointFrom Def: It will check is common values is there from given sets.
 
 console.log('isDisjointFrom: ', italianFoods.isDisjointFrom(mexicanFoods));
 console.log('isDisjointFrom: ', italianFoods.isDisjointFrom(specialFoods));
+
+*/
 
 /* /////////////////////////////////////
 // Sets
