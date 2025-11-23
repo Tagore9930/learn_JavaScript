@@ -122,6 +122,57 @@ const restaurant = {
   },
 };
 
+const airline = "IndiGO Air Travels India";
+const plane = "B0210";
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B1002'[0]);
+
+console.log(airline.length);
+console.log('B1002'.length);
+
+console.log(airline.indexOf('a'));
+console.log(airline.lastIndexOf('a'));
+console.log(airline.indexOf('Air'));
+
+console.log(airline.slice(7));
+console.log(airline.slice(7, 10));
+
+console.log(airline.slice(0, airline.indexOf(' ')));
+console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+
+
+console.log(airline.slice(-1));
+console.log(airline.slice(0, -5));
+
+const isMiddleSeat = function (passName, seat) {
+  let seatType = seat.slice(0, 1);
+  // console.log(seatType);
+  
+  if(seatType === 'B' || seatType === 'E') {
+    console.log(`${passName} got the middle seat 😬`);
+  } else {
+    console.log(`${passName} got lucky 😎`);
+  }
+}
+
+isMiddleSeat('Veera', 'A9900');
+isMiddleSeat('Chandra', 'B9901');
+isMiddleSeat('Keshava', 'C9902');
+isMiddleSeat('Jithendra', 'D9903');
+isMiddleSeat('Tagore', 'E9904');
+isMiddleSeat('Bharathi', 'F9905');
+isMiddleSeat('Gowri', 'G9906');
+
+
+console.log(new String('Tagore'));
+console.log(typeof new String('Tagore'));
+
+console.log(typeof new String('Tagore').slice(1));
+
+
 ///////////////////////////////////////
 // Coding Challenge #3
 
@@ -151,6 +202,7 @@ const gameEvents = new Map([
   [92, '🔶 Yellow card'],
 ]);
 
+/*
 // 1. 
 const events = [...new Set(gameEvents.values())];
 
@@ -181,6 +233,7 @@ for (const [key, value] of gameEvents) {
   console.log(`[${halfType} HALF] ${key}: ${value}`);
 }
 
+*/
 
 /* //////////////////////////////////////////////
 
