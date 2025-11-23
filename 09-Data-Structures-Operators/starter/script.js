@@ -122,6 +122,74 @@ const restaurant = {
   },
 };
 
+const airline = 'IndiGO Air Travels India';
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// Fix Capitalization in name
+const passName = 'TaGoRE';
+const nameLower = passName.toLowerCase();
+const capitalizationName = passName[0].toUpperCase() + nameLower.slice(1);
+console.log(
+  `The passenger name(${passName}) with Capitalization: ${capitalizationName}`
+);
+
+// Compare emails:
+const compareEmails = (correctEmail, loginEmail) => {
+  const formatedEmail = loginEmail.trim().toLowerCase();
+  return correctEmail === formatedEmail;
+};
+console.log(compareEmails('tagore123@gmail.com', 'Tagore123@Gmail.Com'));
+console.log(compareEmails('bharthi123@gmail.com', '  Bharthi123@Gmail.Com \n'));
+console.log(compareEmails('gowri123@gmail.com', '  Gowri@Gmail.Com \n'));
+
+// Replacing
+const priceIN = '23,245₹';
+const priceUS = priceIN.replace('₹', '$').replace(',', '.');
+
+console.log(`The indian price is ${priceIN}`);
+console.log(`The usa price is ${priceUS}`);
+
+const announcement =
+  'All passengers come to boading door 23. Boarding door 23!';
+
+// const correctAnnouncement = announcement.replace('door', 'gate');
+const correctAnnouncement = announcement.replaceAll('door', 'gate');
+// const correctAnnouncement = announcement.replace(/door/g, 'gate'); // If replaceAll method is not working, then use this.
+
+console.log(`The correct announcement is "${correctAnnouncement}"`);
+
+// Booleans
+const plane = 'IndiGO Airbus A2342';
+
+console.log(plane.includes('IndiGO'));
+console.log(plane.includes('A2342'));
+console.log(plane.includes('Pak'));
+
+if (plane.startsWith('IndiGO') && plane.endsWith('A2342')) {
+  console.log('This is new IndiGO Airbus');
+}
+
+// Practice exercise
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You are NOT allowed on board');
+  } else {
+    console.log('Welcome aboard');
+  }
+};
+
+checkBaggage('I have a laptop, some Food and a pocket knife');
+checkBaggage('Socks and Camera');
+checkBaggage('Got some snacks and a gun for protection');
+
+/* ////////////////////////////////////////////////////
+
+// Working with Strings - Part 1
+
 const airline = "IndiGO Air Travels India";
 const plane = "B0210";
 
@@ -172,6 +240,7 @@ console.log(typeof new String('Tagore'));
 
 console.log(typeof new String('Tagore').slice(1));
 
+*/
 
 ///////////////////////////////////////
 // Coding Challenge #3
