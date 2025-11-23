@@ -122,6 +122,51 @@ const restaurant = {
   },
 };
 
+const quiz = new Map([
+  ['question', 'What is the best programming language in the world ?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'Javascript'],
+  ['correct', 3],
+  [true, 'Correct 🎉'],
+  [false, 'Try again!'],
+]);
+
+// Convert any object to map:
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+console.log('Converted openingHours object to Map', hoursMap);
+
+// Quiz App
+console.log('Question: ', quiz.get('question'));
+for (const [key, value] of quiz) {
+  if (typeof key === 'number') {
+    console.log(`Option ${key}: ${value}`);
+  }
+}
+
+// const userAns = Number(
+//   prompt(
+//     'Your answer:- \n Note: your answer should be in number type like 1 or 2 or 3.'
+//   )
+// );
+
+const userAns = 3;
+
+console.log('User Answer:', userAns);
+
+const correctAns = quiz.get('correct');
+console.log(quiz.get(userAns === correctAns));
+
+// Convert map to array.
+console.log([...quiz]);
+// console.log([...quiz.entries()]); // The above line and this line is same.
+console.log([...quiz.keys()]);
+console.log([...quiz.values()]);
+
+/* //////////////////////////////////////
+// Map: Fundamentals
+
 const rest = new Map();
 
 // Map.set() to add items in map.
@@ -156,6 +201,7 @@ console.log(rest.size);
 
 console.log(rest.get(arr));
 
+*/
 
 /* ////////////////////////////////////////
 // New Operations to Make Set Useful
