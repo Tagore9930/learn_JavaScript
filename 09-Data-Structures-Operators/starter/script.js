@@ -122,6 +122,83 @@ const restaurant = {
   },
 };
 
+// Split and join
+console.log(
+  "'Tagore+is+very+good+boy' Removed all plus symbols from given string:",
+  'Tagore+is+very+good+boy'.split('+')
+);
+console.log('Divided Full name with split method:', 'Banda Tagore'.split(' '));
+
+const [firstName, lastName] = 'Banda Tagore'.split(' ');
+
+const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+
+console.log(
+  "'Banda Tagore' Added Mr word and last name uppercase from given string:",
+  newName
+);
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const upperNames = [];
+
+  for (const word of names) {
+    upperNames.push(word[0].toUpperCase() + word.slice(1)); // Think solution in different cases, every problem not only one solution.
+    // upperNames.push(word.replace(word[0], word[0].toUpperCase()));
+  }
+
+  return upperNames.join(' ');
+};
+
+console.log(
+  "'bharathi prakash gowri' string converted to capitalize: ",
+  capitalizeName('bharathi prakash gowri')
+);
+console.log(
+  "'banda tagore' string converted to capitalize: ",
+  capitalizeName('banda tagore')
+);
+
+// Padding
+const message = 'Go to gate 23';
+console.log(message.padStart(25, '-').padEnd(30, '-'));
+
+const myName = 'Banda Tagore';
+console.log(myName.padStart(31, '#').padEnd(50, '#'));
+
+const maskCreditCardNum = function (num) {
+  const strNum = num + '';
+  const lastNums = strNum.slice(-4);
+  return lastNums.padStart(num.length, '*');
+};
+
+console.log(
+  "'1234567890' My test credit card number with masked",
+  maskCreditCardNum('1234567890')
+);
+
+console.log(
+  'Large number with masked',
+  maskCreditCardNum('12345678900986431234567')
+);
+
+// Repeat
+const chatMsg = 'Jai sree ram\n';
+
+console.log(chatMsg.repeat(11));
+
+const vehiclesInLine = function (vehicleName, count, icon) {
+  console.log(
+    `There are ${count + ' ' + vehicleName + icon} in line ${icon.repeat(
+      count
+    )}`
+  );
+};
+
+vehiclesInLine('Car', 5, '🚗');
+vehiclesInLine('Scooty', 10, '🛵');
+vehiclesInLine('Bus', 10, '🚌');
+
 /* ///////////////////////////////////////////////
 // Working with Strings - Part 2
 
