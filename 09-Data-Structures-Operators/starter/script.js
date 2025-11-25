@@ -122,6 +122,9 @@ const restaurant = {
   },
 };
 
+/* ///////////////////////////////////////////////
+// Working with Strings - Part 2
+
 const airline = 'IndiGO Air Travels India';
 
 console.log(airline.toLowerCase());
@@ -185,6 +188,8 @@ const checkBaggage = function (items) {
 checkBaggage('I have a laptop, some Food and a pocket knife');
 checkBaggage('Socks and Camera');
 checkBaggage('Got some snacks and a gun for protection');
+
+*/
 
 /* ////////////////////////////////////////////////////
 
