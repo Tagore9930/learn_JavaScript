@@ -67,6 +67,10 @@ console.log('new Passport', tagore);
 
 */
 
+/* ///////////////////////////////////////
+
+// Functions Returning Functions:
+
 // Higher order funtion with Events example.
 
 const birthday = function (name = '') {
@@ -162,3 +166,29 @@ applyStyles('Warning', '#ffff00', bgColor);
 applyStyles('Danger', '#ff0000', bgColor);
 
 applyStyles('I am large Text', '50px', fontSize);
+
+*/
+
+// Functions Returning Functions:
+
+// Normal functions:
+// const greet = function (greeting) {
+//   return function (name) {
+//     console.log(`${greeting} ${name}`);
+//   };
+// };
+
+// Small Challenge: Try to use Arrow functions for above greet method:
+
+// My code:
+const greet = greeting => {
+  return name => {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+// Expected code:
+// const greet = greeting => name => console.log(`${greeting} ${name}`);
+
+greet('Hi Good Morning')('akka');
+greet('Hi have a nice day')('Raivis sir');
