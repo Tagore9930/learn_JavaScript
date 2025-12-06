@@ -28,6 +28,10 @@ createBooking('LH123', 3, 1100);
 
 */
 
+/* ///////////////////////////////////////
+
+// How Passing Arguments Works: Values vs. Reference
+
 const flight = 'LH234';
 const tagore = {
   name: 'Tagore Banda',
@@ -60,3 +64,101 @@ const newPassport = function (person) {
 newPassport(tagore);
 checkIn(flight, tagore);
 console.log('new Passport', tagore);
+
+*/
+
+// Higher order funtion with Events example.
+
+const birthday = function (name = '') {
+  const baseSpace = 33;
+  name += '!';
+  const totalSpace = baseSpace - (name.length + 1);
+  const left = Math.floor(totalSpace / 2);
+  const right = totalSpace - left;
+  const finalName = ' '.repeat(left + 1) + name + ' '.repeat(right);
+
+  const msg = `
+ _________________________________
+| 🎉🎂🎈 Happy Birthday 🎈🎂🎉 |
+|${finalName}|
+|  Wishing you a day full of joy, |
+|     love, and laughter! 🎁💖   |
+|                                 |
+|  May all your dreams come true! |
+|   🥳🌟 Enjoy your special day! |
+|                                 |
+|        Here's to another        |
+|          amazing year!          |
+|_________________________________|
+  `;
+
+  console.log(msg);
+};
+// birthday('Tagore');
+// birthday('Jithendra');
+// birthday('Keshava');
+// birthday('Bharathi akka');
+
+const wedding = function (names) {
+  const [GirlName, BoyName] = names.trim().split('&');
+  const msg = `
+ _____________________________________
+| 💍💐✨ Happy Wedding Day! ✨💐💍 |
+|                                     |
+|        Congratulations to the       |
+|           lovely couple ❤️❤️       |
+|                                     |
+|         👰 Bride: ${GirlName}🧚‍♀️           |
+|         🤵 Groom: ${BoyName}🤴           |
+|                                     |
+|     Wishing you a lifetime of       |
+|       love and happiness!💞💝      |
+|                                     |
+|_____________________________________|
+  `;
+
+  console.log(msg);
+};
+
+function events(name, fn) {
+  fn(name);
+}
+
+// events('Tagore', birthday);
+// events('Jithendra', birthday);
+// events('Keshava', birthday);
+// events('Bharathi akka', birthday);
+
+// events('Amma&Appa', wedding);
+// events('Akka&Mama', wedding);
+
+// Terminal highlight feature with higher order.
+
+function textColor(text, color) {
+  console.log(`%c ${text} `, `color: ${color}`);
+}
+
+function bgColor(text, color) {
+  console.log(
+    `%c ${text} `,
+    `background-color: ${color}; font-size: 20px; color: black`
+  );
+}
+
+function fontSize(text, size) {
+  console.log(`%c ${text} `, `font-size: ${size};`);
+}
+
+function applyStyles(text, color, fn) {
+  fn(text, color);
+}
+
+applyStyles('Success', '#00ff00', textColor);
+applyStyles('Warning', '#ffff00', textColor);
+applyStyles('Danger', '#ff0000', textColor);
+
+applyStyles('Success', '#00ff00', bgColor);
+applyStyles('Warning', '#ffff00', bgColor);
+applyStyles('Danger', '#ff0000', bgColor);
+
+applyStyles('I am large Text', '50px', fontSize);
