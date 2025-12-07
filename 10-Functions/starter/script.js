@@ -169,6 +169,8 @@ applyStyles('I am large Text', '50px', fontSize);
 
 */
 
+/* ////////////////////////////////////////
+
 // Functions Returning Functions:
 
 // Normal functions:
@@ -192,3 +194,64 @@ const greet = greeting => {
 
 greet('Hi Good Morning')('akka');
 greet('Hi have a nice day')('Raivis sir');
+
+*/
+
+// The call and apply Methods:
+
+const indiGo = {
+  airline: 'IndiGO',
+  planeCode: 'INGO',
+  bookings: [],
+  book(ticketNum, passName) {
+    console.log(
+      `${passName} booked a seat on ${this.airline} flight ${
+        this.planeCode + ticketNum
+      }`
+    );
+    this.bookings.push({
+      ticket: this.planeCode + ticketNum,
+      name: passName,
+    });
+  },
+};
+
+indiGo.book(123, 'Tagore');
+indiGo.book(124, 'Doctor Akka');
+
+const airIndiaExpress = {
+  airline: 'Air India Express',
+  planeCode: 'AIE',
+  bookings: [],
+};
+
+const book = indiGo.book;
+
+// Does not work
+// book(234, 'Bharath');
+
+// Call method:
+book.call(airIndiaExpress, 234, 'Bharath');
+book.call(airIndiaExpress, 235, 'Tagore');
+console.log(airIndiaExpress);
+
+book.call(indiGo, 456, 'Rani Pinni');
+book.call(indiGo, 457, 'Tagore');
+console.log(indiGo.bookings);
+
+const airAsiaIndia = {
+  airline: 'Air Asia India',
+  planeCode: 'AAI',
+  bookings: [],
+};
+
+book.call(airAsiaIndia, 908, 'Amma');
+book.call(airAsiaIndia, 909, 'Appa');
+console.log(airAsiaIndia);
+
+// Apply method:
+const flightData = [644, 'Raivis Kampenuss'];
+book.apply(airAsiaIndia, flightData);
+
+book.call(indiGo, ...flightData);
+console.log(airAsiaIndia);
