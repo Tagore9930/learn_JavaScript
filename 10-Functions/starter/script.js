@@ -255,3 +255,61 @@ book.apply(airAsiaIndia, flightData);
 
 book.call(indiGo, ...flightData);
 console.log(airAsiaIndia);
+
+// Bind method:
+// book.call(airIndiaExpress, 23, "Keshava");
+
+const bookINGO = book.bind(indiGo);
+const bookAIE = book.bind(airIndiaExpress);
+const bookAAI = book.bind(airAsiaIndia);
+
+bookINGO(12, 'Tagore');
+
+const bookINGO24 = book.bind(indiGo, 24);
+
+bookINGO24('Raja bharath');
+bookINGO24('Ganapa bharath');
+
+// With Event Listeners
+indiGo.planes = 300;
+indiGo.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+
+  console.log(this.planes);
+};
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', indiGo.buyPlane.bind(indiGo));
+
+// Partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+// addVAT = (rate, value) => value + value * rate;
+
+console.log(addVAT(100));
+console.log(addVAT(23));
+
+// My own feature:
+
+const calcTicketPrice = (ticketPrice, mems) => ticketPrice * mems;
+
+const buyTicket = calcTicketPrice.bind(null, 499);
+
+console.log(buyTicket(5));
+console.log(buyTicket(3));
+
+// Small challenge to create above function in function.
+
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTaxRate(0.18);
+
+console.log(addVAT2(299));
