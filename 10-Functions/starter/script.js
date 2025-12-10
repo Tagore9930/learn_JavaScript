@@ -352,6 +352,7 @@ console.log(addVAT2(299));
     GOOD LUCK 😀
 */
 
+/*
 const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
@@ -396,3 +397,27 @@ document
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
 poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
 poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
+*/
+
+///////////////////////////////////////
+// Immediately Invoked Function Expressions (IIFE)
+(function () {
+  const isPrivate = true;
+  console.log('This will never run again');
+})();
+
+(() => {
+  const isPrivate = true;
+  console.log('This will also never run again');
+})();
+
+// console.log(isPrivate);
+
+// ES6 new way for encapsulation with scope:
+{
+  const isPrivate = true;
+  var notPrivate = true;
+}
+
+// console.log(isPrivate);
+console.log(notPrivate);
