@@ -399,6 +399,8 @@ poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
 poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
 */
 
+/*
+
 ///////////////////////////////////////
 // Immediately Invoked Function Expressions (IIFE)
 (function () {
@@ -421,3 +423,25 @@ poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
 
 // console.log(isPrivate);
 console.log(notPrivate);
+
+*/
+
+///////////////////////////////////////
+// Closures
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+
+console.dir(booker);
