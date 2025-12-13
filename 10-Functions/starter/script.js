@@ -426,6 +426,7 @@ console.log(notPrivate);
 
 */
 
+/*
 ///////////////////////////////////////
 // Closures
 
@@ -445,3 +446,52 @@ booker();
 booker();
 
 console.dir(booker);
+*/
+
+///////////////////////////////////////
+// More Closure Examples
+// Example 1
+let reuseFunc;
+
+let testCount1 = 50;
+function firstFunc() {
+  // let testCount1 = 30;
+  reuseFunc = function () {
+    console.log('testCount1 increased by 2', testCount1 * 2);
+  };
+}
+
+firstFunc();
+reuseFunc();
+console.log('First time assigned:');
+console.dir(reuseFunc);
+
+// Re-assigning reuse function.
+function secondFunc() {
+  let testCount2 = 200;
+  reuseFunc = function () {
+    console.log('testCount2 increased by 5', testCount2 * 5);
+  };
+
+  // firstFunc();
+}
+
+secondFunc();
+reuseFunc();
+
+console.log('second time assigned:');
+console.dir(reuseFunc);
+
+// Example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(() => {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(90, 4);
