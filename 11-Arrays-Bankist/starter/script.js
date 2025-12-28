@@ -245,6 +245,7 @@ currenciesUnique.forEach((value, _, set) => {
   GOOD LUCK 😀
 */
 
+/*
 function checkDogs(dogsJulia, dogsKate) {
   const juliaOnlyDogs = [...dogsJulia];
   juliaOnlyDogs.splice(0, 1);
@@ -269,3 +270,27 @@ checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 // Test 2:
 console.log('Test 2:');
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+*/
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const euroToUsd = 1.1;
+
+const movementsUSD = movements.map(mov => mov * euroToUsd);
+console.log('movementsUSD', movementsUSD);
+
+// const movementsUSDFor = [];
+// for (const mov of movements) {
+//   movementsUSDFor.push(mov * euroToUsd);
+// }
+
+// console.log('movementsUSD for', movementsUSDFor);
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdraw'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log('Movements description', movementsDescriptions);
