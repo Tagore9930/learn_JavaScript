@@ -106,7 +106,7 @@ console.log(accounts);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -311,3 +311,17 @@ const movementsDescriptions = movements.map(
 console.log('Movements description', movementsDescriptions);
 
 */
+
+// The filter Method
+
+const deposits = movements.filter(mov => mov > 0);
+
+console.log('deposits', deposits);
+
+// For of: This is not chainable, thats why it is not using in this cases.
+// const depositsFor = [];
+
+// for (const mov of movements) if(mov > 0) depositsFor.push(mov);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log('withdrawals', withdrawals);
