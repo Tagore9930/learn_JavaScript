@@ -70,8 +70,8 @@ const displayMovements = function (movements) {
     const html = `
       <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
+            i + 1
+          } ${type}</div>
           <!-- <div class="movements__date">3 days ago</div> -->
           <div class="movements__value">${mov}</div>
       </div>
@@ -82,6 +82,14 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+function calDisplayBalance(movs) {
+  const balance = movs.reduce((acc, mov) => acc + mov, 0);
+
+  labelBalance.textContent = `${balance} RS`;
+}
+
+calDisplayBalance(account1?.movements);
 
 const createUserNames = function (accs) {
   accs.forEach(acc => {
@@ -312,6 +320,7 @@ console.log('Movements description', movementsDescriptions);
 
 */
 
+/*
 // The filter Method
 
 const deposits = movements.filter(mov => mov > 0);
@@ -325,3 +334,31 @@ console.log('deposits', deposits);
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log('withdrawals', withdrawals);
+
+*/
+
+// The reduce Method
+
+console.log(movements);
+
+// accumulator -> SNOWBALL
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   // console.log(acc, cur, i, arr);
+//   console.log(` ${i}: ${acc}`);
+//   return acc + cur;
+// }, 0);
+
+const balance = movements.reduce((acc, mov) => acc + mov, 0);
+console.log(balance);
+
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+// Maximum value
+const maxValue = movements.reduce(
+  (acc, mov) => (acc < mov ? mov : acc),
+  movements[0],
+);
+
+console.log('Maximum value: ', maxValue);
