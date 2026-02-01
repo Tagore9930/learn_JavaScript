@@ -73,7 +73,7 @@ const displayMovements = function (movements) {
             i + 1
           } ${type}</div>
           <!-- <div class="movements__date">3 days ago</div> -->
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${mov}€</div>
       </div>
     `;
 
@@ -86,10 +86,32 @@ displayMovements(account1.movements);
 function calDisplayBalance(movs) {
   const balance = movs.reduce((acc, mov) => acc + mov, 0);
 
-  labelBalance.textContent = `${balance} RS`;
+  labelBalance.textContent = `${balance}€`;
 }
 
 calDisplayBalance(account1?.movements);
+
+function calDisplaySummary(movs) {
+  const income = movs.filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0);
+
+  labelSumIn.textContent = `${income}€`;
+
+  const outcome = movs
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumOut.textContent = `${Math.abs(outcome)}€`;
+
+  const interest = movs
+    .filter(mov => mov > 0)
+    .map(mov => (mov * 1.2) / 100)
+    .filter(int => int >= 1)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumInterest.textContent = `${Math.abs(interest)}€`;
+}
+
+calDisplaySummary(account1?.movements);
 
 const createUserNames = function (accs) {
   accs.forEach(acc => {
@@ -384,6 +406,8 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
 
+/*
+
 function calcAverageHumanAge(dogsAges) {
   // calculate human ages:
   const humanAges = dogsAges.map(dogsAge =>
@@ -404,13 +428,13 @@ function calcAverageHumanAge(dogsAges) {
 
   return averageAdult;
 
+  // [2, 3]. (2 + 3) / 2 = 2.5 === 2/2 + 3/2 = 2.5
+
   // Way 1 (2 + 3) / 2:
   // return adultAges.reduce((acc, age) => acc + age, 0) / adultAges.length;
 
   // Way 2 (2/2) + (3/2):
   // return adultAges.reduce((acc, age, i, arr) => acc + age / arr.length, 0);
-
-  // [2, 3]. (2 + 3) / 2 = 2.5 === 2/2 + 3/2 = 2.5
 }
 
 const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
@@ -418,3 +442,23 @@ const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 console.log(avg1);
 console.log(avg2);
+
+*/
+
+// The Magic of Chaining Methods
+
+const euroToUsd = 1.1;
+
+console.log('Movements', movements);
+
+// PIPELINE
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    // console.log(arr);
+    return mov * euroToUsd;
+  })
+  // .map(mov => mov * euroToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
