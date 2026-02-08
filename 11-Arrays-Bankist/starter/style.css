@@ -295,3 +295,65 @@ h2 {
 .timer {
   font-weight: 600;
 }
+
+.snackbar {
+  position: absolute;
+  inset: 5px 5px auto auto;
+  background-color: lightgray;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  /* width: fit-content; */
+  width: 300px;
+  padding: 5px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.error {
+  background-color: rgb(255 0 24 / 80%);
+  color: white;
+  opacity: 1;
+  visibility: visible;
+  animation: hidePopup 5s forwards;
+}
+
+.warning {
+  background-color: rgb(255 192 0 / 80%);
+  color: #000;
+  opacity: 1;
+  visibility: visible;
+  animation: hidePopup 5s forwards;
+}
+
+.success {
+  background-color: rgb(38 220 80 / 80%);
+  color: white;
+  opacity: 1;
+  visibility: visible;
+  animation: hidePopup 5s forwards;
+}
+
+.snackbar-info {
+  font-size: 12px;
+  padding-inline: 5px;
+  line-height: 2;
+}
+
+.snackbar--close {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@keyframes hidePopup {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

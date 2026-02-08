@@ -46,12 +46,14 @@ const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
+const snackbar = document.querySelector('.snackbar');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
+const btnSnackbarClose = document.querySelector('.snackbar--close');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
@@ -81,10 +83,10 @@ const displayMovements = function (movements) {
   });
 };
 
-function calDisplayBalance(movs) {
-  const balance = movs.reduce((acc, mov) => acc + mov, 0);
+function calDisplayBalance(acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
 
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${acc.balance}€`;
 }
 
 function calDisplaySummary(account) {
@@ -119,6 +121,17 @@ const createUserNames = function (accs) {
   });
 };
 
+const updateUI = function (acc) {
+  // Display Movements
+  displayMovements(acc?.movements);
+
+  // Display Balance
+  calDisplayBalance(acc);
+
+  // Display Summary
+  calDisplaySummary(acc);
+};
+
 createUserNames(accounts);
 // console.log(accounts);
 
@@ -144,23 +157,103 @@ btnLogin.addEventListener('click', function (event) {
     inputLoginUsername.blur();
     inputLoginPin.blur();
 
-    // Display Movements
-    displayMovements(currentAccount?.movements);
-
-    // Display Balance
-    calDisplayBalance(currentAccount?.movements);
-
-    // Display Summary
-    calDisplaySummary(currentAccount);
+    // Update UI
+    updateUI(currentAccount);
   } else {
     console.log(
       'The login details is wrong. My bank have only these accounts',
       accounts,
     );
-    alert(
-      'Login details are invalid.\nPlease check in console to get existing accounts.',
+    showSnackbar('error', 'Login details are invalid.');
+
+    setTimeout(() => {
+      alert('Please check in console to get existing accounts.');
+    }, 1000);
+  }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiverUserName = inputTransferTo.value;
+  const receiverAcc = accounts.find(acc => acc?.username == receiverUserName);
+
+  console.log(receiverAcc);
+
+  if (!receiverUserName || !receiverAcc) {
+    showSnackbar('warning', 'Transfer Receive account is not exist');
+    return;
+  }
+
+  console.log('amount', amount, Boolean(!amount));
+  if (!amount) {
+    showSnackbar('warning', 'The amount is not valid.');
+    return;
+  }
+
+  if (currentAccount?.balance < amount) {
+    showSnackbar('error', `You does have ${amount} in your account.`);
+    return;
+  }
+
+  console.log(
+    receiverAcc?.username && receiverAcc?.username === currentAccount?.username,
+    receiverAcc?.username,
+    receiverAcc?.username,
+    currentAccount?.username,
+  );
+
+  if (
+    receiverAcc?.username &&
+    receiverAcc?.username === currentAccount?.username
+  ) {
+    showSnackbar('warning', `The self transfer is not possible.`);
+    return;
+  }
+
+  console.log('Transfer the amount.');
+  currentAccount.movements.push(-amount);
+  receiverAcc.movements.push(amount);
+  inputTransferTo.value = inputTransferAmount.value = '';
+  showSnackbar('success', `The amount is transfered successfully.`);
+
+  // Update UI
+  updateUI(currentAccount);
+});
+
+// Snackbar
+
+const snackbarTypes = ['success', 'warning', 'error'];
+let snackBarTimeout = null;
+
+function showSnackbar(type, text) {
+  removeSnackbar();
+  console.log('showSnackbar is called');
+  if (!snackbarTypes.includes(type)) {
+    console.error(
+      `The snackbar is type is mismatch (${type}), The snacker have only these types ${snackbarTypes}`,
     );
   }
+  const snackbarInfoTextEle = snackbar.querySelector('.snackbar-info');
+  snackbarInfoTextEle.textContent = text;
+  snackbar.classList.add(type);
+
+  snackBarTimeout = setTimeout(() => {
+    removeSnackbar();
+  }, 4000);
+}
+
+function removeSnackbar() {
+  snackbar.classList?.remove('success', 'warning', 'error');
+  const snackbarInfoTextEle = snackbar.querySelector('.snackbar-info');
+  snackbarInfoTextEle.textContent = '';
+  clearTimeout(snackBarTimeout);
+}
+
+btnSnackbarClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  removeSnackbar();
 });
 
 /////////////////////////////////////////////////
