@@ -146,10 +146,10 @@ btnLogin.addEventListener('click', function (event) {
   console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    console.log('Login successful');
+    console.log('Login successful', currentAccount);
 
     // Display UI and show welcome message
-    labelWelcome.textContent = `Welcome back, ${currentAccount?.owner.split[0]}`;
+    labelWelcome.textContent = `Welcome back, ${currentAccount?.owner.split(' ')[0]}`;
     containerApp.style.opacity = 1;
 
     // clear login fields
@@ -220,6 +220,30 @@ btnTransfer.addEventListener('click', function (e) {
 
   // Update UI
   updateUI(currentAccount);
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const username = inputCloseUsername.value;
+  const pin = Number(inputClosePin.value);
+
+  if (currentAccount.username == username && currentAccount.pin === pin) {
+    const accIndex = accounts.findIndex(
+      acc => acc.username === username && acc.pin === pin,
+    );
+
+    // Delete account
+    accounts.splice(accIndex, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+
+    inputCloseUsername.value = inputClosePin.value = '';
+    labelWelcome.textContent = 'Log in to get started';
+  } else {
+    showSnackbar('error', 'The account details is not matching to current.');
+  }
 });
 
 // Snackbar
