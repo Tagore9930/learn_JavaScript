@@ -470,7 +470,7 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 */
 
-/*
+/* //////////////////////////////////////////////////
 // The map Method
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const euroToUsd = 1.1;
@@ -599,7 +599,7 @@ console.log(avg2);
 
 */
 
-/*
+/* //////////////////////////////////////////////////////
 // The Magic of Chaining Methods
 
 const euroToUsd = 1.1;
@@ -647,7 +647,7 @@ console.log(avg2);
 
 */
 
-/*
+/* //////////////////////////////////////////////
 // The find Method
 
 const firstWithdrawal = movements.find(mov => mov < 0);
@@ -662,3 +662,24 @@ const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
 
 */
+
+///////////////////////////////////////////
+// The new findLast and findLastIndex Methods
+
+console.log(movements);
+
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+
+console.log(`The last withdrawal is ${lastWithdrawal}`);
+
+const latestLargeMovement = movements.findLastIndex(mov => mov >= 3000);
+
+console.log(latestLargeMovement);
+
+if (latestLargeMovement !== -1) {
+  console.log(
+    `The latest large movement was ${movements.length - latestLargeMovement} movements ago`,
+  );
+} else {
+  console.log(`No latest large movement found.`);
+}
