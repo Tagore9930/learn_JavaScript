@@ -63,10 +63,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach((mov, i) => {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((mov, i) => {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -274,6 +276,16 @@ btnClose.addEventListener('click', function (e) {
   } else {
     showSnackbar('error', 'The account details is not matching to current.');
   }
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+
+  sorted = !sorted;
 });
 
 // Snackbar
@@ -793,6 +805,7 @@ BONUS: What's the average weight of the heaviest breed that likes to fetch? HINT
 
 */
 
+/*
 // TEST DATA:
 const breeds = [
   {
@@ -901,3 +914,36 @@ const allFetchWeights = breeds
 const heaviestFetchBreed = Math.max(...allFetchWeights);
 
 console.log('heaviestFetchBreed', heaviestFetchBreed);
+
+*/
+
+// Sorting Arrays
+
+// Strings
+const owners = ['jonas', 'Zach', 'Adam', 'Martha'];
+
+console.log('The original owners', ['jonas', 'Zach', 'Adam', 'Martha']);
+console.log('The sorted the owners', owners.sort());
+console.log('The original owners is effect the sort', owners);
+
+// Numbers
+console.log(movements);
+
+// return < 0, A, B (keep order)
+// return > 0, A, B (switch order)
+
+// Ascending
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+movements.sort((a, b) => a - b);
+console.log('Ascending order movements:', movements);
+
+// Descending
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+movements.sort((a, b) => b - a);
+console.log('Descending order movements:', movements);
