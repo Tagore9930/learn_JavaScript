@@ -984,6 +984,7 @@ console.log('groupedAccounts', groupedAccounts);
 
 */
 
+/* ///////////////////////////////////////////////////
 // More Ways of Creating and Filling Arrays
 
 const arr = [1, 2, 3, 4, 5, 6, 7];
@@ -1021,3 +1022,23 @@ labelBalance.addEventListener('click', function () {
 
   console.log(movementsUI);
 });
+
+*/
+
+// Non-Destructive Alternatives: toReversed, toSorted, toSpliced, with
+
+console.log('movements', movements);
+// const reversedMov = movements.reverse(); // it is changing real arr.
+// const reversedMov = movements.slice().reverse(); // Old solution.
+const reversedMov = movements.toReversed(); // new solution.
+console.log('reversedMov', reversedMov);
+console.log('movements', movements);
+
+// toSorted (sort), toSpliced (splice)
+
+// With method:
+// movements[1] = 2000;
+const newMovs = movements.with(1, 2000);
+
+console.log('movements', movements);
+console.log('newMovs with method:', newMovs);
