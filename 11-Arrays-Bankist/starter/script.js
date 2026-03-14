@@ -955,6 +955,8 @@ console.log('Descending order movements:', movements);
 
 */
 
+/* ////////////////////////////////////////////////////
+
 // Array Grouping
 
 console.log(movements);
@@ -979,3 +981,43 @@ console.log('groupedActivity', groupedActivity);
 const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
 
 console.log('groupedAccounts', groupedAccounts);
+
+*/
+
+// More Ways of Creating and Filling Arrays
+
+const arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array([1, 2, 3, 4, 5, 6, 7]));
+
+// Empty arrays + fill method
+const x = new Array(7);
+console.log(x);
+// console.log(x.map(() => 1));
+
+x.fill(1);
+x.fill(9, 4, 6);
+console.log(x);
+
+arr.fill(23, 3, 6);
+console.log(arr);
+
+// Array.from
+const y = Array.from({ length: 7 }, () => 2);
+
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => {
+  // console.log(_);
+  return i + 1;
+});
+
+console.log('z', z);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', '')),
+  );
+
+  console.log(movementsUI);
+});
