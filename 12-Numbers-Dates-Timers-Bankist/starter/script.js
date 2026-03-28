@@ -202,14 +202,70 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogOutTimer = function () {
+  // Set time to 5 minutes
+  let time = 300; // seconds.
+
+  const tick = function () {
+    const minutes = String(Math.trunc(time / 60)).padStart(2, '0');
+    const seconds = String(Math.trunc(time % 60)).padStart(2, '0');
+
+    // In each call, print the remaining time to UI.
+    labelTimer.textContent = `${minutes}:${seconds}`;
+
+    // When 0 seconds, stops timer and logout user.
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+
+      updateNowTime();
+    }
+
+    // Decrease time.
+    time--;
+  };
+
+  // Call the timer every second.
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
+const updateNowTime = function () {
+  const updateTime = function () {
+    // Create current date and time.
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    };
+
+    const now = new Date();
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options,
+    ).format(now);
+    // console.log('Updating time:', labelDate.textContent);
+  };
+
+  if (nowTimer) clearInterval(nowTimer);
+  updateTime();
+  nowTimer = setInterval(updateTime, 1000);
+};
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, remainingTimer, nowTimer;
 
 // FAKE ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -227,34 +283,17 @@ btnLogin.addEventListener('click', function (e) {
     }`;
     containerApp.style.opacity = 100;
 
-    // Create current date and time.
-    const now = new Date();
-
-    // const locale = navigator.language;
-    const options = {
-      hour: 'numeric',
-      minute: 'numeric',
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
-    };
-
     // console.log(locale);
-    labelDate.textContent = new Intl.DateTimeFormat(
-      currentAccount.locale,
-      options,
-    ).format(now);
-
-    // const day = `${now.getDate()}`.padStart(2, 0);
-    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    // const year = now.getFullYear();
-    // const hour = `${now.getHours()}`.padStart(2, 0);
-    // const min = `${now.getMinutes()}`.padStart(2, 0);
-    // labelDate.textContent = `${day}/${month}/${year}, ${hour}: ${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    // Timer
+    if (remainingTimer) clearInterval(remainingTimer);
+    remainingTimer = startLogOutTimer();
+
+    updateNowTime();
 
     // Update UI
     updateUI(currentAccount);
@@ -285,6 +324,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(remainingTimer);
+    remainingTimer = startLogOutTimer();
   }
 });
 
@@ -302,6 +345,10 @@ btnLoan.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
   inputLoanAmount.value = '';
+
+  // Reset timer
+  clearInterval(remainingTimer);
+  remainingTimer = startLogOutTimer();
 });
 
 btnClose.addEventListener('click', function (e) {
@@ -558,6 +605,9 @@ future.setFullYear(2040);
 console.log(future);
 */
 
+/* ///////////////////////////////////////////////////////////////////////////
+//Operations With Dates
+
 const future = new Date(2037, 10, 19, 15, 23);
 console.log(+future);
 
@@ -566,3 +616,29 @@ const calcDaysPassed = (date1, date2) =>
 
 const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 console.log(days1);
+
+*/
+
+// setTimeout
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) =>
+    console.log(`Here is your pizza
+with ${ing1} and ${ing2} 🍕`),
+  3000,
+  ...ingredients,
+);
+
+console.log('Waiting ... ');
+
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+// setInterval
+// setInterval(function () {
+//   const now = new Date();
+//   // console.log(now);
+
+//   console.log(
+//     `Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+//   );
+// }, 1000);
