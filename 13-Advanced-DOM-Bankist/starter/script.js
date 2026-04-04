@@ -75,9 +75,32 @@ document.querySelector('.nav__links').addEventListener('click', e => {
     let id = target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
 
-  // console.log(target);
-  // console.log(target.classList.contains('nav__link'));
+// Tabbed Component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// This is performance issue.
+// tabs.forEach(t => t.addEventListener('click', () => console.log('Tab')));
+
+tabsContainer.addEventListener('click', e => {
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate tabs
+  clicked.classList.add('operations__tab--active');
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -259,6 +282,7 @@ document.querySelector('.nav').addEventListener(
 );
 */
 
+/* /////////////////////////////////////////////////////////////////////////////
 // DOM Traversing
 
 const h1 = document.querySelector('h1');
@@ -296,3 +320,5 @@ console.log(h1.parentElement.children);
   // if (el !== h1) el.style.transform = 'scale(0.5)';
   if (el !== h1) el.style.scale = 0.5;
 });
+
+*/
