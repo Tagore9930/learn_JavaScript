@@ -65,19 +65,12 @@ btnScrollTo.addEventListener('click', function (e) {
 ///////////////////////////////////////////////////////////////////////////
 // Page Navigation
 
-// document.querySelectorAll('.nav__link').forEach(function (el) {
-//   el.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     let id = this.getAttribute('href');
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
-
 document.querySelector('.nav__links').addEventListener('click', e => {
   e.preventDefault();
 
   const target = e.target;
 
+  // Matching strategy
   if (target.classList.contains('nav__link')) {
     let id = target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
@@ -265,3 +258,41 @@ document.querySelector('.nav').addEventListener(
   true,
 );
 */
+
+// DOM Traversing
+
+const h1 = document.querySelector('h1');
+
+// Going downwards: child
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+
+// console.log(h1.firstElementChild);
+// console.log(h1.firstChild);
+
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'red';
+
+// Going upwards: parents
+console.log(h1.parentElement);
+console.log(h1.parentNode);
+
+console.log('closest of h1', h1.closest('.header'));
+
+h1.closest('header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// Going sideways: siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
+
+[...h1.parentElement.children].forEach(el => {
+  // if (el !== h1) el.style.transform = 'scale(0.5)';
+  if (el !== h1) el.style.scale = 0.5;
+});
