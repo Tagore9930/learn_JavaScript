@@ -1,12 +1,14 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -28,6 +30,61 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
+});
+
+///////////////////////////////////////////////////////////////////////////
+// Button scrolling
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset);
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth,
+  );
+
+  // Scrolling
+  // window.scrollTo(s1coords.left + pageXOffset, s1coords.top + pageYOffset);
+
+  // window.scrollTo({
+  //   left: s1coords.left + pageXOffset,
+  //   top: s1coords.top + pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // New modern way:
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+///////////////////////////////////////////////////////////////////////////
+// Page Navigation
+
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     let id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
+
+  const target = e.target;
+
+  if (target.classList.contains('nav__link')) {
+    let id = target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // console.log(target);
+  // console.log(target.classList.contains('nav__link'));
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -177,6 +234,7 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 // };
 */
 
+/* /////////////////////////////////////////////////////////////////////////
 // Event Propagation in Practice
 
 // rgb(255, 255, 255);
@@ -206,3 +264,4 @@ document.querySelector('.nav').addEventListener(
   },
   true,
 );
+*/
