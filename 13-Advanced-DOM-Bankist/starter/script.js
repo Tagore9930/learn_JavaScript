@@ -177,6 +177,29 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+// Revealing Elements on Scroll
+// Reveal sections
+
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries) {
+  const [entrie] = entries;
+
+  if (!entrie.isIntersecting) return;
+
+  entrie.target.classList.remove('section--hidden');
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
