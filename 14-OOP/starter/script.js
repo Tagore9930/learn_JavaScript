@@ -1,5 +1,6 @@
 'use strict';
 
+/* /////////////////////////////////////////////////
 // Constructor Functions and the new Operator
 
 const Person = function (firstName, birthYear) {
@@ -26,7 +27,9 @@ const jack = new Person('Jack', 1975);
 console.log(matilda, jack);
 
 console.log(jonas instanceof Person);
+*/
 
+/* //////////////////////////////////////////////
 // Prototypes
 
 console.log(Person.prototype);
@@ -61,3 +64,34 @@ console.log(jonas.species, jack.species);
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
 // console.log(jonas.__proto__.hasOwnProperty('species'));
+
+*/
+
+// Prototypal Inheritance on Built-In Objects
+
+console.log(jonas.__proto__);
+// Object.prototype (top of prototype chain)
+console.log(jonas.__proto__.__proto__);
+console.log(jonas.__proto__.__proto__.__proto__);
+
+console.dir(Person.prototype.constructor);
+
+const arr = [3, 6, 6, 5, 6, 9, 9];
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype);
+
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+// function unique() {
+//   return [...new Set(this)];
+// }
+// Array.prototype.unique = unique;
+
+console.dir(arr.unique());
+console.dir(arr.unique);
+
+const h1 = document.querySelector('h1');
+
+console.dir(h1);
+console.dir(x => x + 1);
