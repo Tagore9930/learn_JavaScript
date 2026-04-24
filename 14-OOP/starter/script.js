@@ -122,6 +122,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK
 */
 
+/*
 const Car = function (name, speed) {
   this.name = name;
   this.speed = speed;
@@ -158,3 +159,32 @@ Mercedes.accelerate();
 Mercedes.accelerate();
 Mercedes.brake();
 Mercedes.brake();
+
+*/
+
+// ES6 Classes
+
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2026 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+}
+
+const tagore = new PersonCl('tagore', 2021);
+PersonCl.prototype.greet = function () {
+  console.log(`Hey ${this.firstName}`);
+};
+
+tagore.calcAge();
+tagore.greet();
+
+console.log(tagore.__proto__ === PersonCl.prototype);
