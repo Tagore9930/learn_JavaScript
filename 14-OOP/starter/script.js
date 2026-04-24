@@ -170,6 +170,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Methods will be added to .prototype property.
   calcAge() {
     console.log(2026 - this.birthYear);
   }
@@ -180,11 +181,19 @@ class PersonCl {
 }
 
 const tagore = new PersonCl('tagore', 2021);
-PersonCl.prototype.greet = function () {
-  console.log(`Hey ${this.firstName}`);
-};
+
+// setTimeout(() => {
+//   PersonCl.prototype.greet = function () {
+//     console.log(`Hey ${this.firstName}, your age is ${this.birthYear}`);
+//   };
+//   tagore.greet();
+// }, 1000);
 
 tagore.calcAge();
 tagore.greet();
 
 console.log(tagore.__proto__ === PersonCl.prototype);
+
+// 1. Classes are NOT hoisted
+// 2. Classes are first-class citizes
+// 3. Classes are executed in strict mode
