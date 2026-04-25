@@ -178,9 +178,23 @@ class PersonCl {
   greet() {
     console.log(`Hey ${this.firstName}`);
   }
+
+  get age() {
+    return 2026 - this.birthYear;
+  }
+
+  set firstName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._firstName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get firstName() {
+    return this._firstName;
+  }
 }
 
-const tagore = new PersonCl('tagore', 2021);
+const tagore = new PersonCl('banda tagore', 2021);
 
 // setTimeout(() => {
 //   PersonCl.prototype.greet = function () {
@@ -191,9 +205,31 @@ const tagore = new PersonCl('tagore', 2021);
 
 tagore.calcAge();
 tagore.greet();
+console.log(tagore.age);
 
 console.log(tagore.__proto__ === PersonCl.prototype);
 
 // 1. Classes are NOT hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
+
+// Setters and Getters
+
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+
+  get latest() {
+    return this.movements.slice().pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+
+console.log(account.movements);
