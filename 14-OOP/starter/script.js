@@ -1,6 +1,6 @@
 'use strict';
 
-/* /////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // Constructor Functions and the new Operator
 
 const Person = function (firstName, birthYear) {
@@ -27,7 +27,13 @@ const jack = new Person('Jack', 1975);
 console.log(matilda, jack);
 
 console.log(jonas instanceof Person);
-*/
+
+Person.hey = function () {
+  console.log('Hi there 👋🏻');
+  console.dir(this);
+};
+
+Person.hey();
 
 /* //////////////////////////////////////////////
 // Prototypes
@@ -192,6 +198,11 @@ class PersonCl {
   get firstName() {
     return this._firstName;
   }
+
+  static hey() {
+    console.log('HI here 👋🏻!');
+    console.dir(this);
+  }
 }
 
 const tagore = new PersonCl('banda tagore', 2021);
@@ -209,10 +220,13 @@ console.log(tagore.age);
 
 console.log(tagore.__proto__ === PersonCl.prototype);
 
+PersonCl.hey();
+
 // 1. Classes are NOT hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
 
+/* ////////////////////////////////////////////
 // Setters and Getters
 
 const account = {
@@ -233,3 +247,4 @@ console.log(account.latest);
 account.latest = 50;
 
 console.log(account.movements);
+*/
