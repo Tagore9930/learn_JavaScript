@@ -1,6 +1,6 @@
 'use strict';
 
-/////////////////////////////////////////////////
+/* /////////////////////////////////////////////////
 // Constructor Functions and the new Operator
 
 const Person = function (firstName, birthYear) {
@@ -34,6 +34,7 @@ Person.hey = function () {
 };
 
 Person.hey();
+*/
 
 /* //////////////////////////////////////////////
 // Prototypes
@@ -298,6 +299,7 @@ DATA CAR 1: 'Ford' going at 120 km/h
 GOOD LUCK
 */
 
+/*
 class Car {
   constructor(name, speed) {
     this.name = name;
@@ -341,3 +343,47 @@ console.log('ford.speedUS', ford.speedUS);
 ford.accelerate();
 ford.brake();
 ford.brake();
+*/
+
+//////////////////////////////////////////////////////////
+// Inheritance Between "Classes": Constructor Functions
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2026 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Linking prototypes
+Student.prototype = Object.create(Person.prototype);
+// Student.prototype = Person.prototype;
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('mike', 2020, 'Computer Science');
+
+mike.introduce();
+mike.calcAge();
+
+console.dir(Student);
+
+console.dir(mike.__proto__);
+console.dir(mike.__proto__.__proto__);
+console.dir(mike.__proto__.__proto__.__proto__);
+
+console.dir(mike instanceof Student);
+console.dir(mike instanceof Person);
+console.dir(mike instanceof Object);
+
+console.dir(Student.prototype.constructor);
+Student.prototype.constructor = Student;
