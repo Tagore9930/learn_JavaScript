@@ -169,11 +169,12 @@ Mercedes.brake();
 
 */
 
+/* /////////////////////////////////////////////////////////
 // ES6 Classes
 
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -183,21 +184,21 @@ class PersonCl {
   }
 
   greet() {
-    console.log(`Hey ${this.firstName}`);
+    console.log(`Hey ${this.fullName}`);
   }
 
   get age() {
     return 2026 - this.birthYear;
   }
 
-  set firstName(name) {
+  set fullName(name) {
     console.log(name);
-    if (name.includes(' ')) this._firstName = name;
+    if (name.includes(' ')) this._fullName = name;
     else alert(`${name} is not a full name!`);
   }
 
-  get firstName() {
-    return this._firstName;
+  get fullName() {
+    return this._fullName;
   }
 
   static hey() {
@@ -210,7 +211,7 @@ const tagore = new PersonCl('banda tagore', 2021);
 
 // setTimeout(() => {
 //   PersonCl.prototype.greet = function () {
-//     console.log(`Hey ${this.firstName}, your age is ${this.birthYear}`);
+//     console.log(`Hey ${this.fullName}, your age is ${this.birthYear}`);
 //   };
 //   tagore.greet();
 // }, 1000);
@@ -226,6 +227,8 @@ PersonCl.hey();
 // 1. Classes are NOT hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
+
+*/
 
 /* ////////////////////////////////////////////
 // Setters and Getters
@@ -416,6 +419,7 @@ of 23%
 GOOD LUCK
 */
 
+/*
 const Car = function (name, speed) {
   this.name = name;
   this.speed = speed;
@@ -463,3 +467,65 @@ console.log('After charged 90%', tesla);
 
 tesla.accelerate();
 console.log('After accelerate', tesla);
+*/
+
+// Inheritance Between "Classes": ES6 Classes
+
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to .prototype property.
+  calcAge() {
+    console.log(2026 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return 2026 - this.birthYear;
+  }
+
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  static hey() {
+    console.log('HI here 👋🏻!');
+    console.dir(this);
+  }
+}
+
+class Student extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(
+      `I'm ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear + 10}`,
+    );
+  }
+}
+
+const martha = new Student('Martha Jones', 2012, 'Computer Science');
+console.log(martha);
+
+martha.introduce();
+martha.calcAge();
