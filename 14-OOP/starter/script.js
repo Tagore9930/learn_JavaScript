@@ -564,8 +564,8 @@ jay.introduce();
 jay.calcAge();
 */
 
+/* ///////////////////////////////////////////////////
 // Another Class Example
-
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
@@ -609,3 +609,75 @@ acc1.approveLoan(1000);
 
 console.log(acc1);
 console.log(acc1.pin);
+
+*/
+
+////////////////////////////////////////////////////
+// Encapsulation: Private Class Fields and Methods
+
+// 1) Public fields
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+// STATIC version of these 4
+
+class Account {
+  locale = navigator.language;
+  bank = 'Banklist';
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+    // this.movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account ${owner}`);
+  }
+
+  // Public interface (API)
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  #approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+
+      console.log('Loan approved');
+    }
+  }
+
+  static test() {
+    console.log('TESTING');
+  }
+}
+
+const acc1 = new Account('Bharath', 'IND', 1234);
+
+acc1.deposit(300);
+acc1.withdraw(150);
+acc1.requestLoan(15000);
+
+// acc1.#movements;
+// acc1.#pin;
+// acc1.#approveLoan();
+
+console.log(acc1);
+console.log(acc1.getMovements());
+
+Account.test();
