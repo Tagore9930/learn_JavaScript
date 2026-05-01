@@ -640,14 +640,17 @@ class Account {
   // Public interface (API)
   getMovements() {
     return this.#movements;
+    // Not chaninable
   }
 
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
 
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
   #approveLoan(val) {
@@ -660,6 +663,7 @@ class Account {
 
       console.log('Loan approved');
     }
+    return this;
   }
 
   static test() {
@@ -681,3 +685,11 @@ console.log(acc1);
 console.log(acc1.getMovements());
 
 Account.test();
+const movements = acc1
+  .deposit(2000)
+  .withdraw(1500)
+  .withdraw(300)
+  .deposit(1000)
+  .getMovements();
+
+console.log('movements', movements);
