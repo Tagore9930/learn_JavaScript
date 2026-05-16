@@ -3,15 +3,6 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
-// NEW COUNTRIES API URL (use instead of the URL shown in videos):
-// https://restcountries.com/v2/name/portugal
-
-// NEW REVERSE GEOCODING API URL (use instead of the URL shown in videos):
-// https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}
-
-///////////////////////////////////////
-// Welcome to Callback Hell
-
 const renderCountry = function (data, className = '') {
   console.log(data);
   const html = `
@@ -28,8 +19,21 @@ const renderCountry = function (data, className = '') {
     `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = '1';
+  // countriesContainer.style.opacity = '1';
 };
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+};
+
+// NEW COUNTRIES API URL (use instead of the URL shown in videos):
+// https://restcountries.com/v2/name/portugal
+
+// NEW REVERSE GEOCODING API URL (use instead of the URL shown in videos):
+// https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}
+
+///////////////////////////////////////
+// Welcome to Callback Hell
 
 /*
 const getCountryAndNeighbour = function (country) {
@@ -93,7 +97,7 @@ const request = fetch(`https://restcountries.com/v3.1/name/india`);
 console.log(request);
 */
 
-/* /////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // Consuming Promises
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -107,16 +111,7 @@ console.log(request);
 //     });
 // };
 
-const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
-    .then(data => renderCountry(data[0]));
-};
-
-getCountryData('India');
-*/
-
-// Chaining Promises
+// Chaining Promises + Handling Rejected Promises
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
@@ -129,7 +124,18 @@ const getCountryData = function (country) {
       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
     .then(response => response.json())
-    .then(data => renderCountry(data[0], 'neighbour'));
+    .then(data => renderCountry(data[0], 'neighbour'))
+    .catch(err => {
+      console.error(`${err} 💥💥💥`);
+      renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
-getCountryData('India');
+btn.addEventListener('click', function () {
+  getCountryData('India');
+});
+
+// getCountryData('tyuih67');
