@@ -266,6 +266,7 @@ Promise.resolve('Resolved promise 2').then(res => {
 console.log('Test end.');
 */
 
+/* ////////////////////////////////////////////////////
 // Building a Simple Promise
 
 const lotteryPromise = new Promise(function (resolve, reject) {
@@ -280,7 +281,9 @@ const lotteryPromise = new Promise(function (resolve, reject) {
 });
 
 lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+ */
 
+/* ////////////////////////////////////////////////
 // Promisifying setTimeout
 const wait = function (seconds) {
   return new Promise(function (resolve) {
@@ -320,3 +323,56 @@ wait(1)
 
 Promise.resolve('abc').then(x => console.log(x));
 Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+*/
+
+// Promisifying the Geolocation API
+
+const getPosition = function () {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+// getPosition().then(res => console.log(res));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      if (!pos.ok) new Error('Position is unable to get.');
+
+      const { latitude: lat, longitude: lng } = pos.coords;
+
+      return fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`,
+      );
+    })
+    .then(response => {
+      console.log(response);
+
+      if (!response?.ok)
+        throw new Error('There is a problem in geocoding API.');
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`You are in ${data?.city}, ${data?.countryName}`);
+
+      return fetch(`https://restcountries.com/v3.1/name/${data?.countryName}`);
+    })
+    .then(response => {
+      if (!response?.ok) throw new Error('Country not found.');
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      renderCountry(data[0]);
+    })
+    .catch(err => {
+      console.error(`Something went wrong, ${err?.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+};
+
+btn.addEventListener('click', whereAmI);
