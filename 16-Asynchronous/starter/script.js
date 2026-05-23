@@ -19,11 +19,12 @@ const renderCountry = function (data, className = '') {
     `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  // countriesContainer.style.opacity = '1';
+  countriesContainer.style.opacity = '1';
 };
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = '1';
 };
 
 // NEW COUNTRIES API URL (use instead of the URL shown in videos):
@@ -404,6 +405,7 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK 😀
 */
 
+/*
 const wait = function (seconds) {
   return new Promise(function (resolve) {
     setTimeout(resolve, seconds * 1000);
@@ -458,3 +460,45 @@ createImage('./img/img-1.jpg')
     loadedImg.style.display = 'none';
   })
   .catch(err => console.log(err));
+*/
+
+// Consuming Promises with Async/Await
+
+const getPosition = function () {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function () {
+  // GeoLocation.
+  const pos = await getPosition();
+  // if (!pos.ok) new Error('Position is unable to get.');
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  // Reverse Geocoding.
+  const resGeo = await fetch(
+    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`,
+  );
+
+  if (!resGeo?.ok) throw new Error('There is a problem in geocoding API.');
+  const dataGeo = await resGeo.json();
+
+  console.log(`You are in ${dataGeo?.city}, ${dataGeo?.countryName}`);
+
+  // Country data
+  const countryRes = await fetch(
+    `https://restcountries.com/v3.1/name/${dataGeo?.countryName}`,
+  );
+
+  // if (!response?.ok) throw new Error('Country not found.');
+  const countryData = await countryRes.json();
+
+  renderCountry(countryData[0]);
+  // .catch(err => {
+  //   console.error(`Something went wrong, ${err?.message}`);
+  // })
+};
+
+whereAmI();
+console.log('Checking...');
