@@ -4,7 +4,6 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 const renderCountry = function (data, className = '') {
-  console.log(data);
   const html = `
         <article class="country ${className}">
           <img class="country__img" src="${data?.flags?.png}" />
@@ -485,8 +484,6 @@ const whereAmI = async function () {
     if (!resGeo?.ok) throw new Error('There is a problem in geocoding API.');
     const dataGeo = await resGeo.json();
 
-    console.log(`You are in ${dataGeo?.city}, ${dataGeo?.countryName}`);
-
     // Country data
     const countryRes = await fetch(
       `https://restcountries.com/v3.1/name/${dataGeo?.countryName}`,
@@ -496,11 +493,35 @@ const whereAmI = async function () {
     const countryData = await countryRes.json();
 
     renderCountry(countryData[0]);
+
+    return `You are in ${dataGeo?.city}, ${dataGeo?.countryName}`;
   } catch (err) {
     console.error(`Something went wrong, ${err?.message}`);
+
+    throw err;
   }
 };
 
-whereAmI();
+// whereAmI();
 
-console.log('Checking...');
+// Returning Values from Async Functions
+console.log('1. Will get location.');
+
+// const city = whereAmI();
+// console.log('city', city);
+
+// whereAmI()
+//   .then(city => console.log(`2. ${city}`))
+//   .catch(err => console.log(`2: ${err.message} 💥`))
+//   .finally(() => console.log('3: Finished getting location.'));
+
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2. ${city}`);
+  } catch (err) {
+    console.log(`2: ${err.message} 💥`);
+  }
+
+  console.log('3: Finished getting location.');
+})();
