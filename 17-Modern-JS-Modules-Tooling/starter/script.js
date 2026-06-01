@@ -26,6 +26,9 @@
 
 // console.log(data, dataJson);
 
+/* ////////////////////////////////////////////////////
+// 285. Top-Level await (ES2022)
+
 const getLastPost = async function () {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const data = await res.json();
@@ -40,3 +43,34 @@ const lastPost = getLastPost();
 const lastPost2 = await getLastPost();
 
 console.log(lastPost2);
+*/
+
+// 286. The Module Pattern
+const ShoppigCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} added to cart`);
+  };
+
+  const orderStock = function (product, quantity) {
+    console.log(`${quantity} ${product} ordered from supplier.`);
+  };
+
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity,
+  };
+})();
+
+ShoppigCart2.addToCart('apple', 3);
+ShoppigCart2.addToCart('pizza', 2);
+
+console.log(ShoppigCart2);
+console.log(ShoppigCart2.shippingCost);
