@@ -45,6 +45,7 @@ const lastPost2 = await getLastPost();
 console.log(lastPost2);
 */
 
+/* //////////////////////////////////////
 // 286. The Module Pattern
 const ShoppigCart2 = (function () {
   const cart = [];
@@ -74,3 +75,15 @@ ShoppigCart2.addToCart('pizza', 2);
 
 console.log(ShoppigCart2);
 console.log(ShoppigCart2.shippingCost);
+*/
+
+// 287. CommonJS Modules
+
+// Export
+export.addToCart = function (product, quantity) {
+  cart.push({ product, quantity });
+  console.log(`${quantity} ${product} added to cart`);
+};
+
+// Import
+const { addToCart } = require('./shoppigCart.js');
